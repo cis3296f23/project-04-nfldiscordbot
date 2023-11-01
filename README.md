@@ -1,8 +1,6 @@
-# Project Name
-Put here a short paragraph describing your project. 
-Adding an screenshot or a mockup of your application in action would be nice.  
+# NFL Discord Bot
+Users on the Discord platform can enjoy the benefits of a server bot that effortlessly provides them with information from the National Football League (NFL), including scores and statistics all within their own servers. Discord is a popular platform where users can create communities to communicate and share media. For the bot to work, a user can write a command that the bot knows, and the bot will display its response to the user. With this bot, NFL communities in Discord can view desired data in a fast and efficient manner.
 
-![This is a screenshot.](images.png)
 # How to run
 Provide here instructions on how to use your application.   
 - Download the latest binary from the Release section on the right on GitHub.  
