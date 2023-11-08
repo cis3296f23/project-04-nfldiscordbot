@@ -6,7 +6,7 @@ These instructions are for Discord admin users.
 
 ## How to Add the Bot to Your Server:
 1. Ensure that you are logged into your Discord account.
-2. Click [here](https://discord.com/oauth2/authorize?client_id=YOUR_BOT_CLIENT_ID&permissions=BOT_PERMISSIONS&scope=bot) to access the bot's invite link.
+2. Click [here](https://discord.com/api/oauth2/authorize?client_id=1153482870980083763&permissions=68608&scope=bot) to access the bot's invite link.
 3. On the webpage that opens, choose the server where you want to add the bot from the dropdown menu.
 4. Click "Continue," and the bot will be added to your server.
 
