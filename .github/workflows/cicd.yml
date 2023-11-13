@@ -35,9 +35,10 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: us-east-1
 
-      - name: Build and push Docker image to Amazon ECR
+      - name: Build and push Docker image to Amazon ECR, and trigger ECS service update
         run: |
           docker build -t nfl-discord-bot --build-arg BOT_TOKEN=${BOT_TOKEN} .
           docker tag nfl-discord-bot:latest ${{ secrets.AWS_ACCOUNT_NUMBER }}.dkr.ecr.us-east-1.amazonaws.com/nfl-discord-bot:latest
           docker push ${{ secrets.AWS_ACCOUNT_NUMBER }}.dkr.ecr.us-east-1.amazonaws.com/nfl-discord-bot:latest
+          aws ecs update-service --cluster discord-bot --service test-nfl-discord-bot --force-new-deployment > /dev/null 2>&1
         working-directory: NFL_Discord_Server_Bot  # Specifies the working directory
