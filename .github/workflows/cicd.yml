@@ -1,0 +1,43 @@
+name: Build and Push to ECR
+
+on:
+  push:
+    branches: # Add the branch(es) you want to trigger the workflow
+      - main
+
+  workflow_dispatch:  # Allows manual execution
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    env:
+      BOT_TOKEN: ${{ secrets.BOT_TOKEN }} # Retrieve the bot token from an environment variable set in this repo's secrets manager
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3  # This action checks out your repository's code
+
+      - name: Set up Java
+        uses: actions/setup-java@v3  # Sets up the Java environment
+        with:
+          distribution: 'corretto'
+          java-version: '17'  # Specify the Java version you need
+
+      - name: Build with Maven
+        run: mvn clean package  # Builds the Java project JAR file
+        working-directory: NFL_Discord_Server_Bot  # Specifies the working directory
+
+      - name: Login to Amazon ECR
+        run: aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_NUMBER }}.dkr.ecr.us-east-1.amazonaws.com
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-east-1
+
+      - name: Build and push Docker image to Amazon ECR
+        run: |
+          docker build -t nfl-discord-bot --build-arg BOT_TOKEN=${BOT_TOKEN} .
+          docker tag nfl-discord-bot:latest ${{ secrets.AWS_ACCOUNT_NUMBER }}.dkr.ecr.us-east-1.amazonaws.com/nfl-discord-bot:latest
+          docker push ${{ secrets.AWS_ACCOUNT_NUMBER }}.dkr.ecr.us-east-1.amazonaws.com/nfl-discord-bot:latest
+        working-directory: NFL_Discord_Server_Bot  # Specifies the working directory
