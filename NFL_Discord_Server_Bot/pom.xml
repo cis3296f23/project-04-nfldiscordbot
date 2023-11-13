@@ -49,6 +49,31 @@
                 <directory>src/main/resources</directory>
             </resource>
         </resources>
+        <finalName>NFL_Discord_Server_Bot</finalName>
+         <plugins>
+             <plugin>
+                 <artifactId>maven-assembly-plugin</artifactId>
+                 <version>3.3.0</version>
+                 <configuration>
+                     <archive>
+                         <manifest>
+                             <mainClass>org.example.MyBot</mainClass>
+                         </manifest>
+                     </archive>
+                     <descriptorRefs>
+                         <descriptorRef>jar-with-dependencies</descriptorRef>
+                     </descriptorRefs>
+                 </configuration>
+                 <executions>
+                     <execution>
+                         <phase>package</phase>
+                         <goals>
+                             <goal>single</goal>
+                         </goals>
+                     </execution>
+                 </executions>
+             </plugin>
+         </plugins> 
     </build>
 
     <repositories>
