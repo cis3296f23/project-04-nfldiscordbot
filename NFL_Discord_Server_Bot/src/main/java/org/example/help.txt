@@ -1,0 +1,20 @@
+Welcome to the NFL Data Bot!
+
+I am here to provide you with various NFL-related information. To use the bot, simply type commands in the following format:
+
+- For team season record: !NFLDB "[city]-[name]"
+- For team standings: !NFLDB standings "[city]-[name]"
+- For entire league standings: !NFLDB standings
+- For starting QB yards for the season: !NFLDB qb-yards "[city]-[name]"
+
+Formatting Instructions:
+- Team names should be specified using the format "[city]-[name]". For example, "new-york-giants" or "kansas-city-chiefs".
+- Ensure that the team name is enclosed in double quotes.
+
+Example Usage:
+- To get the season record for the New York Giants: !NFLDB "new-york-giants"
+- To retrieve the team standings for the Kansas City Chiefs: !NFLDB standings "kansas-city-chiefs"
+- To view the entire league standings: !NFLDB standings
+- To check the starting QB yards for the season for the Green Bay Packers: !NFLDB qb-yards "green-bay-packers"
+
+Feel free to explore and enjoy the NFL data at your fingertips! If you have any questions, type `!NFLDB help` to revisit this guide.
