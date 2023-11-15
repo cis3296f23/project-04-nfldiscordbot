@@ -7,6 +7,10 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class MyBot extends ListenerAdapter //Simplifies the creation of event listeners for Discord bot events
 {
     public static void main(String[] args) throws Exception {
@@ -39,7 +43,39 @@ public class MyBot extends ListenerAdapter //Simplifies the creation of event li
             event.getChannel().sendMessage("Hey there! How you are doing?").queue();  // If it is, the bot responds back to the same channel where the message was received
 
         }
+
+        if (event.getMessage().getContentRaw().equalsIgnoreCase("!NFLDB help")) {
+            String filePath = "/Users/arafat/IdeaProjects/project-04-nfldiscordbot/NFL_Discord_Server_Bot/src/main/java/org/example/help.txt";
+
+            try {
+                // Create a FileReader to read the file
+                FileReader fileReader = new FileReader(filePath);
+
+                // Wrap the FileReader in a BufferedReader for efficient reading
+                BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+                // Read each line from the file and print it to the console
+                String line;
+                StringBuilder helpMessage = new StringBuilder();
+                while ((line = bufferedReader.readLine()) != null) {
+                    System.out.println(line);
+                    helpMessage.append(line).append("\n"); // Add a newline character after each line
+                }
+                event.getChannel().sendMessage(helpMessage.toString()).queue();
+                // event.getChannel().sendMessage(helpMessage.toString()).queue();
+
+                // Close the BufferedReader
+                bufferedReader.close();
+            } catch (IOException e) {
+                // Handle exceptions, such as file not found or unable to read
+                e.printStackTrace();
+            }
+        }
     }
+
+
+
+
 
 
 }
