@@ -10,7 +10,8 @@ import java.util.Random;
  * Lists a random current player
  */
 public class RandCurrentPlayer {
-    public static void main(String[] args) {
+    public static String getPlayer() {
+        String player = "";
         try {
             String url = "https://www.footballdb.com/players/current.html";
             Document doc = Jsoup.connect(url).get();
@@ -31,12 +32,11 @@ public class RandCurrentPlayer {
 
             //Print the random name
             String name = randomAElement.text();
-            System.out.println("Random current player: " + name);
+            player += "Random current player: " + name;
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
+        return player;
     }
 }

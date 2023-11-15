@@ -10,8 +10,8 @@ import org.jsoup.nodes.Element;
 
 
 public class AnyTeamRecord {
-
     public static String getTeamRecord(String teamName) {
+        String result = "";
 
         try {
             StringBuilder url = new StringBuilder("https://www.footballdb.com/teams/nfl/");
@@ -25,12 +25,13 @@ public class AnyTeamRecord {
             // Extract and print the record
             String record = recordElement.text();
             System.out.println(formatString(teamName) + " " + record);
+            result += formatString(teamName) + " " + record;
 
         }catch (Exception e) {
             e.printStackTrace();
         }
 
-        return "";
+        return result;
     }
 
     public static String formatString(String input) {
