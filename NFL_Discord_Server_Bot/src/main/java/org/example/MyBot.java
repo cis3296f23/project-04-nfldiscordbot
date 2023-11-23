@@ -71,20 +71,17 @@ public class MyBot extends ListenerAdapter //Simplifies the creation of event li
             }
         }
         if (event.getMessage().getContentRaw().equalsIgnoreCase("!schedule")) {
-            String result = "";
-            result = NFL_Schedule.schedule();
+            String result = NFL_Schedule.schedule();
             event.getChannel().sendMessage(result).queue();
         }
         if (event.getMessage().getContentRaw().equalsIgnoreCase("!random player")) {
-            String result = "";
-            result = RandCurrentPlayer.getPlayer();
+            String result = RandCurrentPlayer.getPlayer();
             event.getChannel().sendMessage(result).queue();
         }
         if (event.getMessage().getContentRaw().startsWith("!NFLDB ")) {
             String userMessage = event.getMessage().getContentRaw();
             String param = userMessage.substring("!NFLDB ".length());
-            String result = "";
-            result = AnyTeamRecord.getTeamRecord(param);
+            String result = AnyTeamRecord.getTeamRecord(param);
             event.getChannel().sendMessage(result).queue();
         }
         if (event.getMessage().getContentRaw().equalsIgnoreCase("!league standings")) {
@@ -93,9 +90,11 @@ public class MyBot extends ListenerAdapter //Simplifies the creation of event li
             strTable = l.getLeagueStandings();
             event.getChannel().sendMessage(strTable).queue();
         }
-
-
-
-
+        if (event.getMessage().getContentRaw().startsWith("!stats ")) {
+            String userMessage = event.getMessage().getContentRaw();
+            String param = userMessage.substring("!stats ".length());
+            String result = TeamStatistics.getTeamStatistics(param);
+            event.getChannel().sendMessage(result).queue();
+        }
     }
 }
