@@ -43,7 +43,7 @@ public class MyBot extends ListenerAdapter //Simplifies the creation of event li
             event.getChannel().sendMessage("Hey there! How you are doing?").queue();  // If it is, the bot responds back to the same channel where the message was received
 
         }
-        if (event.getMessage().getContentRaw().equalsIgnoreCase("!NFLDB help")) {
+        if (event.getMessage().getContentRaw().equalsIgnoreCase("!help")) {
             String filePath = "/Users/arafat/IdeaProjects/project-04-nfldiscordbot/NFL_Discord_Server_Bot/src/main/java/org/example/help.txt";
 
             try {
