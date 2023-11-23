@@ -87,6 +87,15 @@ public class MyBot extends ListenerAdapter //Simplifies the creation of event li
             result = AnyTeamRecord.getTeamRecord(param);
             event.getChannel().sendMessage(result).queue();
         }
+        if (event.getMessage().getContentRaw().equalsIgnoreCase("!league standings")) {
+            String strTable = "";
+            League l = new League();
+            strTable = l.getLeagueStandings();
+            event.getChannel().sendMessage(strTable).queue();
+        }
+
+
+
 
     }
 }
