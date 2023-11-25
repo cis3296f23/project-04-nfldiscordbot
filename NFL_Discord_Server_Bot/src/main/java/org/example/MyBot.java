@@ -15,8 +15,8 @@ public class MyBot extends ListenerAdapter //Simplifies the creation of event li
 {
     public static void main(String[] args) throws Exception {
 
-        // String bot_token = System.getenv("BOT_TOKEN"); // Retrieve the bot token from an environment variable
-        String bot_token = "MTE1MzQ4Mjg3MDk4MDA4Mzc2Mw.GGETUR.7PRSkX0nJfxxqXbTR0w50rjA193kPn7L_IuKFU";
+        String bot_token = System.getenv("BOT_TOKEN"); // Retrieve the bot token from an environment variable
+        
         if (bot_token == null || bot_token.isEmpty()) {
             System.err.println("Bot token is missing or empty. Please set the BOT_TOKEN environment variable.");
             System.exit(1);
