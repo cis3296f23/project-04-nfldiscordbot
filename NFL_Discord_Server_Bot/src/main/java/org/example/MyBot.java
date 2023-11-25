@@ -15,8 +15,8 @@ public class MyBot extends ListenerAdapter //Simplifies the creation of event li
 {
     public static void main(String[] args) throws Exception {
 
-        String bot_token = System.getenv("BOT_TOKEN"); // Retrieve the bot token from an environment variable
-
+        // String bot_token = System.getenv("BOT_TOKEN"); // Retrieve the bot token from an environment variable
+        String bot_token = "MTE1MzQ4Mjg3MDk4MDA4Mzc2Mw.GGETUR.7PRSkX0nJfxxqXbTR0w50rjA193kPn7L_IuKFU";
         if (bot_token == null || bot_token.isEmpty()) {
             System.err.println("Bot token is missing or empty. Please set the BOT_TOKEN environment variable.");
             System.exit(1);
@@ -70,32 +70,73 @@ public class MyBot extends ListenerAdapter //Simplifies the creation of event li
                 e.printStackTrace();
             }
         }
-        if (event.getMessage().getContentRaw().equalsIgnoreCase("!schedule")) {
+
+        if (event.getMessage().getContentRaw().equalsIgnoreCase("!Hey bot")) { //Checks if the content of the received message. is equal to "!hey bot".
+            event.getChannel().sendMessage("Hey there! How you are doing?").queue();  // If it is, the bot responds back to the same channel where the message was received
+
+        }
+        if (event.getMessage().getContentRaw().startsWith("!player ")) {
+            String userMessage = event.getMessage().getContentRaw();
+            String param = userMessage.substring("!player ".length());
             String result = "";
-            result = NFL_Schedule.schedule();
+            result = playerHandler(param);
             event.getChannel().sendMessage(result).queue();
         }
-        if (event.getMessage().getContentRaw().equalsIgnoreCase("!random player")) {
+
+        if (event.getMessage().getContentRaw().startsWith("!team ")) {
+            String userMessage = event.getMessage().getContentRaw();
+            String param = userMessage.substring("!team ".length());
+            String result = "";
+            result = teamHandler(param);
+            event.getChannel().sendMessage(result).queue();
+        }
+        if (event.getMessage().getContentRaw().startsWith("!league ")) {
+            String userMessage = event.getMessage().getContentRaw();
+            String param = userMessage.substring("!league ".length());
+            String result = "";
+            result = leagueHandler(param);
+            event.getChannel().sendMessage(result).queue();
+        }
+        if (event.getMessage().getContentRaw().startsWith("!random player")) {
             String result = "";
             result = RandCurrentPlayer.getPlayer();
             event.getChannel().sendMessage(result).queue();
         }
-        if (event.getMessage().getContentRaw().startsWith("!NFLDB ")) {
-            String userMessage = event.getMessage().getContentRaw();
-            String param = userMessage.substring("!NFLDB ".length());
-            String result = "";
-            result = AnyTeamRecord.getTeamRecord(param);
-            event.getChannel().sendMessage(result).queue();
-        }
-        if (event.getMessage().getContentRaw().equalsIgnoreCase("!league standings")) {
-            String strTable = "";
-            League l = new League();
-            strTable = l.getLeagueStandings();
-            event.getChannel().sendMessage(strTable).queue();
-        }
-
-
-
 
     }
+
+    public String playerHandler(String param) {
+        return "[playerHandler(playerName) result]";
+    }
+
+    public String teamHandler(String param) {
+
+        if (param.startsWith("record ")) {
+            String teamName = param.substring("record ".length());
+            Team t = new Team(teamName);
+            return t.getRecord();
+        }else {
+            return "Given team name is unknown!";
+        }
+    }
+
+    public String leagueHandler(String param) {
+        League l = new League();
+        param.trim();
+        if (param.equalsIgnoreCase("standings")){
+            String strTable = "";
+            strTable = l.getLeagueStandings();
+            return strTable;
+        }else if (param.equalsIgnoreCase("schedule")){
+            String schedule = "";
+            schedule = l.getLeagueSchedule();
+            return schedule;
+        }else{
+            return "League stat request unknown. Try again!";
+        }
+    }
+
+
+
+
 }
