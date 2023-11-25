@@ -35,24 +35,20 @@ public class NFL_Schedule {
                 weekNum = String.valueOf(digit1) + String.valueOf(digit2);
             }
 
-            //Get the number of the upcoming week
-            int upcomingWeekNumInt = Integer.parseInt(weekNum) + 1;
-            String upcomingWeekNum = Integer.toString(upcomingWeekNumInt);
-
             //Get the year
             String year = preview.substring(0, 4);
 
             //https://www.footballdb.com/games/previews.html?yr=2023&wk=9&type=reg
             //Create url to the upcoming week
             StringBuilder url2 = new StringBuilder("https://www.footballdb.com/games/previews.html?yr=");
-            url2.append(year + "&wk=" + upcomingWeekNum + "&type=reg");
+            url2.append(year + "&wk=" + weekNum + "&type=reg");
 
             Document doc2 = Jsoup.connect(url2.toString()).get();
 
             //Select all div elements with class "divider"
             Elements allDivs = doc2.select("div");
 
-            result += "__**Upcoming " + year + " NFL Schedule - Week " + upcomingWeekNum + "**__\n";
+            result += "__**Upcoming " + year + " NFL Schedule - Week " + weekNum + "**__\n";
 
             for (Element thisDiv : allDivs) {
                 if (thisDiv.hasClass("divider")) {
