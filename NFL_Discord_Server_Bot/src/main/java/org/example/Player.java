@@ -9,63 +9,60 @@ import org.jsoup.select.Elements;
 
 public class Player {
 
-    public static void findPlayer(String playerName){
+    public static String findPlayer(String playerName){
 
         int i = 1;
         boolean foundPlayer = false;
         String url = "";
-        String retrievedName = "name";   
+        String retrievedName = "name";
+        StringBuilder result = new StringBuilder();
 
         try {
             while (!retrievedName.equals("")){
                 //if the retrieved name matches 
                 url = formatPlayerUrl(playerName, i);
                 Document doc = Jsoup.connect(url).get();
-                retrievedName = getRetrievedName(doc);
+                retrievedName = getRetrievedName(doc).toLowerCase();
 
                 if (retrievedName.equals(playerName)){
-                    getPlayerInfo(playerName, url, doc);
+                    result.append(getPlayerInfo(playerName, url, doc));
                     foundPlayer = true;
                 }
                 
                 i++;
             }
             if (!foundPlayer){
-                System.out.println("Player not found.");
+                result.append("Player not found.");
             }
             
             //while the URL is valid
             
         }  catch (IOException e){
             e.printStackTrace();
+            result.append("Error occured while retrieving player information.");
         }
-        
-        
-    
 
-        
-        
-        
+        return result.toString();
+          
     }
 
-    public static void getPlayerInfo(String playerName, String url, Document doc) {
+    public static String getPlayerInfo(String playerName, String url, Document doc) {
 
+        StringBuilder playerInfo = new StringBuilder();
         String position = getPosition(doc);
         String team = getTeam(doc);
         String retreivedName = getRetrievedName(doc);
         Element statTable = getStatTable(url, doc, position);
+
         if (statTable == null) {
-            System.out.println("not enough info found");
-            return;
+            return playerInfo.toString();
         }
         Elements lastRow = getLastRow(statTable);
 
-        System.out.println("team = " + team);
-        System.out.println("position = " + position);
-        System.out.println("name = " + retreivedName);
-
+        playerInfo.append("\n**Name:** " ).append(retreivedName).append("\n");
+        playerInfo.append("**Position:** " ).append(position).append("\n");
+        playerInfo.append("**Team:** ").append(team).append("\n");
         
-
         if (position.equals("QB")){
             //completion percentage, passing yards, passing touchdowns, and interceptions
             double completionPercentage = Double.parseDouble(lastRow.get(7).text());
@@ -76,10 +73,10 @@ public class Player {
             int passingTouchdowns = Integer.parseInt(lastRow.get(11).text());
             int interceptions = Integer.parseInt(lastRow.get(13).text());  
 
-            System.out.println("completion percentage = " + completionPercentage);
-            System.out.println("yards = " + yards);
-            System.out.println("passing touchdowns =  " + passingTouchdowns);
-            System.out.println("interceptions = " + interceptions);
+            playerInfo.append("**Completion Percentage:** ").append(completionPercentage).append("%\n");
+            playerInfo.append("**Passing Yards:** ").append(yards).append("\n");
+            playerInfo.append("**Passing Touchdowns:** ").append(passingTouchdowns).append("\n");
+            playerInfo.append("**Interception:** ").append(interceptions).append("\n");
 
         } else if (position.equals("WR") || position.equals("TE")) {
             //receptions, yards, touchdowns
@@ -89,10 +86,9 @@ public class Player {
             int yards = Integer.parseInt(yardsWithoutCommas);
             int touchdowns = Integer.parseInt(lastRow.get(10).text());
             
-            System.out.println("yards = " + yards);
-            System.out.println("receptions = " + receptions);
-            System.out.println("touchdowns = " + touchdowns);
-
+            playerInfo.append("**Receptions:** ").append(receptions).append("\n");
+            playerInfo.append("**Receiving Yards:** ").append(yards).append("\n");
+            playerInfo.append("**Touchdowns:** ").append(touchdowns).append("\n");
 
         } else if (position.equals("RB")) {
             //Attempts, Yards, Touchdowns
@@ -103,9 +99,9 @@ public class Player {
             int yards = Integer.parseInt(yardsWithoutCommas);
             int touchdowns = Integer.parseInt(lastRow.get(10).text());
         
-            System.out.println("attempts = " + attempts);
-            System.out.println("yards = " + yards);
-            System.out.println("touchdowns = " + touchdowns);
+            playerInfo.append("**Attempts:** ").append(attempts).append("\n");
+            playerInfo.append("**Rushing Yards:** ").append(yards).append("\n");
+            playerInfo.append("**Touchdowns:** ").append(touchdowns).append("\n");
 
 
         //Defensive player
@@ -118,10 +114,10 @@ public class Player {
             int passDeflected = Integer.parseInt(lastRow.get(15).text());
             int interceptions = Integer.parseInt(lastRow.get(5).text());
           
-            System.out.println("total tackles = " + totalTackles);
-            System.out.println("sacks = " + sacks);
-            System.out.println("passes deflected = " + passDeflected);
-            System.out.println("interceptions = " + interceptions);
+            playerInfo.append("**Total Tackles:** ").append(totalTackles).append("\n");
+            playerInfo.append("**Sacks:** ").append(sacks).append("\n");
+            playerInfo.append("**Passes Deflected:** ").append(passDeflected).append("\n");
+            playerInfo.append("**Interceptions** ").append(interceptions).append("\n");
 
         //Kicker
         } else if (position.equals("K")) {
@@ -131,9 +127,9 @@ public class Player {
             int longestMade = Integer.parseInt(lastRow.get(13).text());
             double extraPointPercentage = Double.parseDouble(lastRow.get(16).text());
           
-            System.out.println("field goal percentage = " + fieldGoalPercentage + "%");
-            System.out.println("extra point percentage = " + extraPointPercentage + "%");
-            System.out.println("longest made field goal = " + longestMade);
+            playerInfo.append("**Field Goal Percentage:** ").append(fieldGoalPercentage).append("\n");
+            playerInfo.append("**Extra Point Percentage:** ").append(extraPointPercentage).append("\n");
+            playerInfo.append("**Longest Field Goal Made:** ").append(longestMade).append("\n");
 
         //Punter
         } else if (position.equals("P")) {
@@ -143,10 +139,12 @@ public class Player {
             int longestPunt = Integer.parseInt(lastRow.get(8).text());
             int inside20 = Integer.parseInt(lastRow.get(10).text());
             
-            System.out.println("average punt yards = " + averageYards);
-            System.out.println("longest punt = " + longestPunt);
-            System.out.println("punts inside the 20 = " + inside20);
+            playerInfo.append("**Average Yards Per Punt:** ").append(averageYards).append("\n");
+            playerInfo.append("**Longest Punt:** ").append(longestPunt).append("\n");
+            playerInfo.append("**Punts Inside The 20:** ").append(inside20).append("\n");
         }
+
+        return playerInfo.toString();
 
     }   
     
@@ -244,16 +242,24 @@ public class Player {
 
     public static String formatPlayerUrl(String playerName, int i) {
 
-        // Remove periods from players name
-        String nameWithoutPeriods = playerName.replace(".", "");
+        // Remove periods, hyphens, and apostrophes from players name
+        String strippedName = playerName.replace(".", "").replace("'","").replace("-","");
+
         // Convert the player name to lowercase
-        String lowercaseName = nameWithoutPeriods.toLowerCase();
+        String lowercaseName = strippedName.toLowerCase();
         // Replace spaces with hyphens
         String hyphenatedName = lowercaseName.replace(" ", "-");
 
         // Extract first five letters of last name and first two letters of the first name
         String[] nameParts = lowercaseName.split(" ");
-        String lastName = nameParts[nameParts.length - 1];
+
+        String lastName = "";
+
+        if (nameParts.length > 2){
+            lastName = nameParts[nameParts.length - 2] + nameParts[nameParts.length - 1];
+        } else {
+            lastName = nameParts[nameParts.length - 1];
+        }
 
         // Ensure that the last name has at least 5 characters before extracting
         if (lastName.length() > 5) {
@@ -276,16 +282,17 @@ public class Player {
     }
 
     public static void main(String[] args) {
-        findPlayer("Jalen Hurts");
-        findPlayer("Haason Reddick");
-        findPlayer("Darius Slay");
-        findPlayer("A.J. Brown");
-        findPlayer("Travis Kelce");
-        findPlayer("Christian McCaffrey");
-        findPlayer("Jake Elliott");
-        findPlayer("Braden Mann");
-        findPlayer("Jason Kelce");
-        findPlayer("Josh Allen");
+        // findPlayer("Jalen Hurts");
+        // findPlayer("Haason Reddick");
+        // findPlayer("Darius Slay");
+        // findPlayer("A.J. Brown");
+        // findPlayer("Travis Kelce");
+        // findPlayer("Christian McCaffrey");
+        // findPlayer("Jake Elliott");
+        // findPlayer("Braden Mann");
+        // findPlayer("Jason Kelce");
+        // findPlayer("Josh Allen");
+        // findPlayer("Amon-Ra St. Brown");
 
     }
 

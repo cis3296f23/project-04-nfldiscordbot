@@ -106,7 +106,12 @@ public class MyBot extends ListenerAdapter //Simplifies the creation of event li
     }
 
     public String playerHandler(String param) {
-        return "[playerHandler(playerName) result]";
+        param = param.trim();
+        String[] words = param.split("\\s+");
+        String playerName = String.join(" " , words);
+        playerName = playerName.toLowerCase();
+        System.out.println("player name = " + playerName);
+        return Player.findPlayer(playerName);
     }
 
     public String teamHandler(String param) {
