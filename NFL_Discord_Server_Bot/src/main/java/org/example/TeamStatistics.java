@@ -68,39 +68,48 @@ public class TeamStatistics {
 
                     //Gms
                     Element gms = tdElements.get(1);
-                    result += "__**Gms**__\n" + gms.text() + "\n";
+                    //result += "__**Gms**__\n" + gms.text() + "\n";
+                    result += "__**Games**__\n" + gms.text() + "\n";
 
                     //Tot Pts
                     Element totPts = tdElements.get(2);
-                    result += "__**Tot Pts**__\n" + totPts.text() + "\n";
+                    //result += "__**Tot Pts**__\n" + totPts.text() + "\n";
+                    result += "__**Total Points**__\n" + totPts.text() + "\n";
 
                     //Pts/G
                     Element ptsPerG = tdElements.get(3);
-                    result += "__**Pts/G**__\n" + ptsPerG.text() + "\n";
+                    //result += "__**Pts/G**__\n" + ptsPerG.text() + "\n";
+                    result += "__**Points Per Game**__\n" + ptsPerG.text() + "\n";
 
                     //RushYds
                     Element rushYds = tdElements.get(4);
-                    result += "__**RushYds**__\n" + rushYds.text() + "\n";
+                    //result += "__**RushYds**__\n" + rushYds.text() + "\n";
+                    result += "__**Rush Yards**__\n" + rushYds.text() + "\n";
 
                     //RYds/G
                     Element rYdsPerG = tdElements.get(5);
-                    result += "__**RYds/G**__\n" + rYdsPerG.text() + "\n";
+                    //result += "__**RYds/G**__\n" + rYdsPerG.text() + "\n";
+                    result += "__**Rush Yards Per Game**__\n" + rYdsPerG.text() + "\n";
 
                     //PassYds
                     Element passYds = tdElements.get(6);
-                    result += "__**PassYds**__\n" + passYds.text() + "\n";
+                    //result += "__**PassYds**__\n" + passYds.text() + "\n";
+                    result += "__**Pass Yards**__\n" + passYds.text() + "\n";
 
                     //PYds/G
                     Element pYdsPerG = tdElements.get(7);
-                    result += "__**PYds/G**__\n" + pYdsPerG.text() + "\n";
+                    //result += "__**PYds/G**__\n" + pYdsPerG.text() + "\n";
+                    result += "__**Pass Yards Per Game**__\n" + pYdsPerG.text() + "\n";
 
                     //TotYds
                     Element totYds = tdElements.get(8);
-                    result += "__**TotYds**__\n" + totYds.text() + "\n";
+                    //result += "__**TotYds**__\n" + totYds.text() + "\n";
+                    result += "__**Total Yards**__\n" + totYds.text() + "\n";
 
                     //Yds/G
                     Element ydsPerG = tdElements.get(9);
-                    result += "__**Yds/G**__\n" + ydsPerG.text() + "\n";
+                    //result += "__**Yds/G**__\n" + ydsPerG.text() + "\n";
+                    result += "__**Yards Per Game**__\n" + ydsPerG.text() + "\n";
                 }
             }
         } catch(Exception e) {
