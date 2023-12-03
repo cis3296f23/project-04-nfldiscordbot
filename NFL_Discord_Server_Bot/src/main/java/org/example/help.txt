@@ -2,10 +2,10 @@ Welcome to the NFL Data Bot!
 
 I am here to provide you with various NFL-related information. To use the bot, simply type commands in the following format:
 
-- For player information: !player "[full player name]"
+- For player information: !player [full player name]
 - For team information:
-  - To get a team's season record: !team record "[city]-[name]"
-  - To get a team's statistics: !team stats "[city]-[name]"
+  - To get a team's season record: !team record [city name]
+  - To get a team's statistics: !team stats [city name]
 - For league information:
   - To get the league standings: !league standings
   - To get the league schedule: !league schedule
@@ -13,13 +13,13 @@ I am here to provide you with various NFL-related information. To use the bot, s
 
 Formatting Instructions:
 - Player names should be specified using the format "[full player name]". For example, "Tom Brady" or "Patrick Mahomes".
-- Team names should be specified using the format "[city]-[name]". For example, "new-york-giants" or "kansas-city-chiefs".
-- Ensure that the player name and team name are enclosed in double quotes.
+- Team names should be specified using the format "[city] [name]". For example, "new york giants" or "Kansas City Chiefs".
 
 Example Usage:
-- To get information about the player Tom Brady: !player "Tom Brady"
-- To check the season record for the New York Giants: !team record "new-york-giants"
+- To get information about the player Tom Brady: [!player Tom Brady]
+- To check the season record for the New York Giants: [!team record new york giants]
 - To view the league standings: !league standings
+- To view the league schedule: !league schedule
 - To get information about a random player: !random player
 
-Feel free to explore and enjoy the NFL data at your fingertips! If you have any questions, type `!NFLDB help` to revisit this guide.
+Feel free to explore and enjoy the NFL data at your fingertips! If you have any questions, type `!help` to revisit this guide.
