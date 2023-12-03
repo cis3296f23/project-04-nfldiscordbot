@@ -45,7 +45,7 @@ public class MyBot extends ListenerAdapter //Simplifies the creation of event li
         }
 
         if (event.getMessage().getContentRaw().equalsIgnoreCase("!help")) {
-            String filePath = "/Users/arafat/IdeaProjects/project-04-nfldiscordbot/NFL_Discord_Server_Bot/src/main/java/org/example/help.txt";
+            String filePath = "NFL_Discord_Server_Bot/src/main/java/org/example/help.txt";
 
             try {
                 // Create a FileReader to read the file
@@ -84,14 +84,15 @@ public class MyBot extends ListenerAdapter //Simplifies the creation of event li
             String userMessage = event.getMessage().getContentRaw();
             String param = userMessage.substring("!team ".length());
             String result = "";
-            result = teamHandler(param);
+            result = teamHandler(param.toLowerCase());
             event.getChannel().sendMessage(result).queue();
         }
+
         if (event.getMessage().getContentRaw().startsWith("!league ")) {
             String userMessage = event.getMessage().getContentRaw();
             String param = userMessage.substring("!league ".length());
             String result = "";
-            result = leagueHandler(param);
+            result = leagueHandler(param.toLowerCase());
             event.getChannel().sendMessage(result).queue();
         }
         if (event.getMessage().getContentRaw().startsWith("!random player")) {
@@ -115,14 +116,18 @@ public class MyBot extends ListenerAdapter //Simplifies the creation of event li
 
         if (param.startsWith("record ")) {
             String teamName = param.substring("record ".length());
+            teamName = teamName.replace(" ", "-");
+            teamName = teamName.trim();
             Team t = new Team(teamName);
             return t.getRecord();
         }else if(param.startsWith("stats ")){
             String teamName = param.substring("stats ".length());
+            teamName = teamName.replace(" ", "-");
+            teamName = teamName.trim();
             Team t = new Team(teamName);
             return t.getTeamStatistics();
         }else {
-            return "Given team name is unknown!";
+            return "Given team command is unknown! Try again!";
         }
     }
 
@@ -138,7 +143,7 @@ public class MyBot extends ListenerAdapter //Simplifies the creation of event li
             schedule = l.getLeagueSchedule();
             return schedule;
         }else{
-            return "League stat request unknown. Try again!";
+            return "Given league command unknown! Try again!";
         }
     }
 
