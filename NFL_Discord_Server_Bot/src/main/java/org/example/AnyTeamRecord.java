@@ -29,6 +29,7 @@ public class AnyTeamRecord {
 
         }catch (Exception e) {
             e.printStackTrace();
+            System.out.println("Team not found.");
         }
 
         return result;
@@ -53,9 +54,10 @@ public class AnyTeamRecord {
 
     public static void main(String[] args) {
         getTeamRecord("dallas-cowboys");
-        getTeamRecord("philadelphia-eagles");
-        getTeamRecord("washington-commanders");
-        getTeamRecord("new-york-giants");
+        //getTeamRecord("philadelphia-eagles");
+        //getTeamRecord("washington-commanders");
+        //getTeamRecord("new-york-giants");
+        getTeamRecord("fake-team");
 
 
     }
