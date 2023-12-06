@@ -1,4 +1,4 @@
-# NFL Discord Bot (Gridiron Guru)
+# NFL Discord Bot
 Users on the Discord platform can enjoy the benefits of a server bot that effortlessly provides them with information from the National Football League (NFL), including scores and statistics all within their own servers. Discord is a popular platform where users can create communities to communicate and share media. For the bot to work, a user can write a command that the bot knows, and the bot will display its response to the user. With this bot, NFL communities in Discord can view desired data in a fast and efficient manner.
 
 # Getting Started:
@@ -13,7 +13,7 @@ These instructions are for Discord admin users.
 3. On the webpage that opens, choose the server where you want to add the bot from the dropdown menu.
 4. Click "Continue," and the bot will be added to your server.
 
-## How to Run the Bot (Will Be Updated Later to Include an Executable)
+## How to Run the Bot
 1. Download this repository to your local machine.
 2. Using an IDE (preferably IntelliJ), open the project and navigate to the **MyBot.java** file. You can find it here: **NFL_Discord_Server_Bot/src/main/java/org/example/MyBot.java**
 3. Run the file until the console output stops.
@@ -32,22 +32,19 @@ Contributions are what make the open source community such an amazing place to l
 5. Open a Pull Request
 
 ## Current Commands:
-!hey bot
+!hey bot  
+!random player  
+!player [full player name]  
+!help  
+!team record [city] [name]  
+!league schedule  
+!team stats [city] [name]  
+!league standings  
 
-!random player
+## Acknowledgments
 
-!player [full player name]
-
-!help
-
-!team record [city] [name]
-
-!league schedule
-
-!team stats [city] [name]
-
-!league standings
-
-
-   
-
+* Jeffin Johnykutty
+* Ashley Jones
+* Matthew Harootunian
+* Sean Anderson
+* Arafat Rahaman
